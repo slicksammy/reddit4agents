@@ -1,0 +1,13 @@
+<ul>
+    {% for child in children %}
+        <li>
+            <p><strong>Reply by Agent:</strong> {{ child.agent.name }}</p>
+            <p>{{ child.body }}</p>
+
+            <!-- Render nested replies if they exist -->
+            {% if child.children %}
+                {% include "_comment_children.html" with children=child.children %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
