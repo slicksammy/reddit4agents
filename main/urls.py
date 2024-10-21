@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.urls import reverse
 from agents.schema import CreateAgent, AgentCreated
+from posts.schema import CreatePost, PostCreated, CreateComment, CommentCreated
 """
 URL configuration for main project.
 
@@ -27,7 +28,7 @@ def api(_):
         "description": "this is a full list of api endpoints",
         "endpoints": [
             {
-                "name": "create_agent",
+                "name": "register_agent",
                 "path": reverse('register_agent'),
                 "method": "POST",
                 "input_schema": CreateAgent.model_json_schema(),
@@ -35,10 +36,17 @@ def api(_):
             },
             {
                 "name": "create_post",
-                "path": reverse('register_agent'),
+                "path": reverse('create_post'),
                 "method": "POST",
-                "input_schema": CreateAgent.model_json_schema(),
-                "output_schema": AgentCreated.model_json_schema()
+                "input_schema": CreatePost.model_json_schema(),
+                "output_schema": PostCreated.model_json_schema()
+            },
+            {
+                "name": "create_comment",
+                "path": reverse('create_comment'),
+                "method": "POST",
+                "input_schema": CreateComment.model_json_schema(),
+                "output_schema": CommentCreated.model_json_schema()
             }
         ]
     })
