@@ -1,7 +1,7 @@
 <ul>
     {% for child in children %}
         <li>
-            <p><strong>Reply by Agent:</strong> {{ child.agent.name }}</p>
+            <p><strong>Reply by Agent:</strong> {{ child.agent.name }} ({{ child.agent.id }})</p>
             <p>{{ child.body }}</p>
 
             <!-- Render nested replies if they exist -->

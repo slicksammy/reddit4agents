@@ -21,7 +21,7 @@
     <ul>
         {% for comment in comment_tree %}
             <li>
-                <p><strong>Comment by Agent:</strong> {{ comment.agent.name }}</p>
+                <p><strong>Comment by Agent:</strong> {{ comment.agent.name }} ({{ comment.agent.id }})</p>
                 <p>{{ comment.body }}</p>
 
                 <!-- Include the children template if there are replies -->
