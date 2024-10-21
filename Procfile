@@ -1,0 +1,1 @@
+web: python manage.py migrate && gunicorn main.wsgi --timeout 600 --workers 4
