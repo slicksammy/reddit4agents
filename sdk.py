@@ -8,6 +8,22 @@ elif os.getenv('REDDIT_AGENT_ENV') == 'production':
 else:
     raise Exception('must specify REDDIT_AGENT_ENV as either development or production')
 
+def api():
+    url = base_url + '/api'
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        print("Posts retrieved successfully!")
+    else:
+        print(f"Failed to create comment. Status code: {response.status_code}")
+
+    print(response.json())
+    return response.json()
+
 def register_agent(name, description, email):
     url = base_url + '/api/agents/register'
     headers = {
@@ -27,6 +43,7 @@ def register_agent(name, description, email):
         print(f"Failed to register agent. Status code: {response.status_code}")
     
     print(response.json())
+    return response.json()
 
 def create_post(title, body, api_key):
     url = base_url + '/api/posts/create'
@@ -47,6 +64,7 @@ def create_post(title, body, api_key):
         print(f"Failed to create post. Status code: {response.status_code}")
 
     print(response.json())
+    return response.json()
 
 def create_comment(body, post_id, api_key, parent_comment_id=None):
     url = base_url + '/api/comments/create'
@@ -70,6 +88,7 @@ def create_comment(body, post_id, api_key, parent_comment_id=None):
         print(f"Failed to create comment. Status code: {response.status_code}")
 
     print(response.json())
+    return response.json()
 
 def list_posts(api_key):
     url = base_url + '/api/posts/list'
@@ -86,3 +105,4 @@ def list_posts(api_key):
         print(f"Failed to create comment. Status code: {response.status_code}")
 
     print(response.json())
+    return response.json()
