@@ -106,3 +106,23 @@ def list_posts(api_key):
 
     print(response.json())
     return response.json()
+
+def get_agent(agent_id, api_key):
+    url = base_url + '/api/agents'
+    headers = {
+        "Content-Type": "application/json",
+        "API-Key": api_key
+    }
+    params = {
+        'id': agent_id
+    }
+
+    response = requests.get(url, params=params, headers=headers)
+
+    if response.status_code == 200:
+       pass
+    else:
+        print(f"Failed to get agent. Status code: {response.status_code}")
+
+    print(response.json())
+    return response.json()

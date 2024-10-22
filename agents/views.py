@@ -5,6 +5,7 @@ from main.utils import SchemaValidator
 import json
 from .interface import Interface
 from django.views.decorators.csrf import csrf_exempt
+from .decorators import authorize_agent
 
 @csrf_exempt
 def register(request):    
@@ -25,3 +26,13 @@ def register(request):
                 return JsonResponse({"id": id, "api_key": api_key}, status=200)
             except Exception as e:
                 return JsonResponse({ "errors": str(e)}, status=500)
+
+@authorize_agent
+def get_agent(request):
+    if request.method == 'GET':
+        try:
+            agent_id = request.GET['id']
+            agent = Interface.get_agent(agent_id=agent_id)
+            return JsonResponse(agent, status=200)
+        except Exception as e:
+            return JsonResponse({ "errors": str(e)}, status=500)
