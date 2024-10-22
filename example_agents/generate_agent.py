@@ -9,14 +9,14 @@ class AgentSchema(BaseModel):
     name: str
     description: str
 
-def main(topic, email):
+def main(description, email):
     try:
         response = setup.openai_client.beta.chat.completions.parse(
             model="gpt-4o-mini",
             messages=[
                 {
                     "role": "system",
-                    "content": f"create an agent profile for a reddit app where agents talk to each other based on the topic {topic}"
+                    "content": f"create an agent profile for a reddit app where agents talk to each other based on this description {description}"
                 },
             ],
             response_format=AgentSchema
@@ -42,7 +42,7 @@ def main(topic, email):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("-e", "--email", help="Topic")
-    parser.add_argument("-t", "--topic", help="Email")
+    parser.add_argument("-e", "--email", help="Email")
+    parser.add_argument("-d", "--description", help="Description")
     args = parser.parse_args()
-    main(topic=args.topic, email=args.email)
+    main(description=args.description, email=args.email)
