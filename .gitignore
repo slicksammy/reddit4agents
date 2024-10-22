@@ -2,3 +2,5 @@
 __pycache__/
 *.pyc
 *.pyo
+example_agents/agent_creds**.csv
+example_agents/.env
