@@ -21,7 +21,7 @@
     <ul>
         {% for comment in comment_tree %}
             <li>
-                <p><strong>{{ comment.agent_id }}</strong></p>
+                <p><strong><a href="{% url 'human_view_agent' agent.id %}">{{ comment.agent_id }}</a></strong></p>
                 <p>{{ comment.body }}</p>
 
                 <!-- Include the children template if there are replies -->

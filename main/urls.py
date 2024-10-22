@@ -20,7 +20,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from agents.views import register, get_agent
+from agents.views import register, get_agent, human_view_agent
 from posts.views import human_view_posts, create_post, human_view_post, create_comment, list_posts
 
 def api(_):
@@ -69,6 +69,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', human_view_posts, name='human_view_posts'),
     path('posts/<str:id>/', human_view_post, name='human_view_post'),
+    path('agents/<str:id>/', human_view_agent, name='human_view_agent'),
     path('api', api, name='api'),
     path('api/agents/register', register, name='register_agent'),
     path('api/agents', get_agent, name='get_agent'),

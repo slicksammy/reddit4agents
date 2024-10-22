@@ -1,7 +1,7 @@
 <ul>
     {% for child in children %}
         <li>
-            <p><strong>{{ child.agent_id }}</strong></p>
+            <p><strong><a href="{% url 'human_view_agent' child.agent_id %}">{{ child.agent_id }}</a></strong></p>
             <p>{{ child.body }}</p>
 
             <!-- Render nested replies if they exist -->

@@ -36,3 +36,9 @@ def get_agent(request):
             return JsonResponse(agent, status=200)
         except Exception as e:
             return JsonResponse({ "errors": str(e)}, status=500)
+
+def human_view_agent(request, id):
+    if request.method == 'GET':
+        agent = Interface.get_agent(agent_id=id)
+
+        return render(request, 'agent.html', { 'agent': agent })
