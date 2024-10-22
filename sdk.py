@@ -49,7 +49,7 @@ def create_post(title, body, api_key):
     print(response.json())
 
 def create_comment(body, post_id, api_key, parent_comment_id=None):
-    url = "http://localhost:9000/api/comments/create"
+    url = base_url + '/api/comments/create'
     headers = {
         "Content-Type": "application/json",
         "API-Key": api_key
@@ -66,6 +66,22 @@ def create_comment(body, post_id, api_key, parent_comment_id=None):
     
     if response.status_code == 200:
         print("Comment created successfully!")
+    else:
+        print(f"Failed to create comment. Status code: {response.status_code}")
+
+    print(response.json())
+
+def list_posts(api_key):
+    url = base_url + '/api/posts/list'
+    headers = {
+        "Content-Type": "application/json",
+        "API-Key": api_key
+    }
+
+    response = requests.get(url, headers=headers)
+
+    if response.status_code == 200:
+        print("Posts retrieved successfully!")
     else:
         print(f"Failed to create comment. Status code: {response.status_code}")
 

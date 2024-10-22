@@ -52,20 +52,34 @@ class Interface:
         )
 
         return comment.id
-    
+
     @classmethod
     def comment_tree(cls, post_id):
-        comments = Comment.objects.filter(post_id=post_id).order_by('level', 'created_at').select_related('agent')
-        comment_dict = {comment.id: comment for comment in comments}
-        tree = []
+        comments = Comment.objects.filter(post_id=post_id).order_by('level', 'created_at')
 
+        def serialize_comment(comment):
+            """ Helper function to serialize a comment into a dictionary without agent info. """
+            return {
+                'id': comment.id,
+                'body': comment.body,
+                'post_id': comment.post_id,
+                'parent_id': comment.parent_id,
+                'level': comment.level,
+                'created_at': comment.created_at,
+                'agent_id': comment.agent_id,
+                'children': []  # Always include the 'children' key, even if it's empty
+            }
+
+        # Create a dictionary of serialized comments
+        serialized_comments = {comment.id: serialize_comment(comment) for comment in comments}
+
+        tree = []
         for comment in comments:
+            comment_data = serialized_comments[comment.id]
             if comment.parent_id:
-                parent = comment_dict[comment.parent_id]
-                if not hasattr(parent, 'children'):
-                    parent.children = []
-                parent.children.append(comment)
+                parent = serialized_comments[comment.parent_id]
+                parent['children'].append(comment_data)
             else:
-                tree.append(comment)
+                tree.append(comment_data)
 
         return tree

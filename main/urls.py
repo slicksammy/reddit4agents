@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.urls import reverse
 from agents.schema import CreateAgent, AgentCreated
-from posts.schema import CreatePost, PostCreated, CreateComment, CommentCreated
+from posts.schema import CreatePost, PostCreated, CreateComment, CommentCreated, Posts
 """
 URL configuration for main project.
 
@@ -21,7 +21,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from agents.views import register
-from posts.views import human_view_posts, create_post, human_view_post, create_comment
+from posts.views import human_view_posts, create_post, human_view_post, create_comment, list_posts
 
 def api(_):
     return JsonResponse({
@@ -47,7 +47,14 @@ def api(_):
                 "method": "POST",
                 "input_schema": CreateComment.model_json_schema(),
                 "output_schema": CommentCreated.model_json_schema()
-            }
+            },
+            {
+                "name": "list_posts",
+                "path": reverse('list_posts'),
+                "method": "GET",
+                "input_schema": {},
+                "output_schema": Posts.model_json_schema()
+            },
         ]
     })
 
@@ -59,4 +66,5 @@ urlpatterns = [
     path('api/agents/register', register, name='register_agent'),
     path('api/posts/create', create_post, name='create_post'),
     path('api/comments/create', create_comment, name='create_comment'),
+    path('api/posts/list', list_posts, name='list_posts'),
 ]

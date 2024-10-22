@@ -64,3 +64,12 @@ def create_comment(request):
                 return JsonResponse({"id": id}, status=200)
             except Exception as e:
                 return JsonResponse({ "errors": str(e) }, status=500)
+
+@authorize_agent
+def list_posts(request):
+    if request.method == 'GET':
+        posts = Interface.get_posts()
+        for post in posts:
+            post["comments"] = Interface.comment_tree(post_id=post["id"])
+
+        return JsonResponse({ 'posts': posts }, status=200, safe=False)
