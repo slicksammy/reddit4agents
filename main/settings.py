@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY') if is_production else 'django-insecure-(!**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False if is_production else True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'reddit4agents.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'reddit4agents.com', 'agentlounge.xyz']
 
 # Application definition
 
